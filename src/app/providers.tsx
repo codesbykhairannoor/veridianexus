@@ -1,21 +1,23 @@
-'use client';
-
 import { ChakraProvider } from '@chakra-ui/react';
-import { ChakraNextJsProvider } from '@chakra-ui/next-js';
+import { ChakraNextThemeProvider } from '@chakra-ui/next-js';
 import { SessionProvider } from 'next-auth/react';
 import { ThemeProvider } from 'next-themes';
 import { ReactNode } from 'react';
 
-export function Providers({ children }: { children: ReactNode }) {
+interface ProvidersProps {
+  children: ReactNode;
+}
+
+export function Providers({ children }: ProvidersProps) {
   return (
     <SessionProvider>
-      <ChakraNextJsProvider>
+      <ChakraNextThemeProvider>
         <ChakraProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
           </ThemeProvider>
         </ChakraProvider>
-      </ChakraNextJsProvider>
+      </ChakraNextThemeProvider>
     </SessionProvider>
   );
 }

@@ -1,13 +1,10 @@
-import { Inter } from 'next/font/google';
-import './globals.css';
 import { Providers } from './providers';
-import { GoogleTagManager } from '@next/third-parties/google';
-
-const inter = Inter({ subsets: ['latin'] });
+import { GoogleAnalytics } from '@next/third-parties/google';
+import './globals.css';
 
 export const metadata = {
-  title: 'Veridianexus — Trust-First SaaS Platform',
-  description: 'Enterprise-grade data integrity and provenance platform',
+  title: 'Veridianexus',
+  description: 'A secure, transparent SaaS platform for digital provenance.',
 };
 
 export default function RootLayout({
@@ -17,10 +14,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body>
         <Providers>{children}</Providers>
-        <GoogleTagManager gtmId="GTM-XXXXXXX" />
       </body>
+      <GoogleAnalytics gaId="G-XXXXXXXXXX" />
     </html>
   );
 }
