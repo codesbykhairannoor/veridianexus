@@ -1,13 +1,13 @@
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Providers } from './providers';
-import { GoogleTagManager } from '@next/third-parties/google'; // ✅ Import added
+import { GoogleTagManager } from '@next/third-parties/google';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'Veridian Nexus',
-  description: 'Enterprise-grade data provenance and trust platform',
+  title: 'Veridianexus — Trust-First SaaS Platform',
+  description: 'Enterprise-grade data integrity and provenance platform',
 };
 
 export default function RootLayout({
@@ -16,13 +16,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
+        <GoogleTagManager gtmId="GTM-XXXXXXX" />
       </body>
-      <GoogleTagManager gtmId="GTM-XXXXXXX" /> // ✅ Required for @next/third-parties/google
     </html>
   );
 }
