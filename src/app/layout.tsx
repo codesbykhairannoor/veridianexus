@@ -1,13 +1,12 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
+import { Inter } from 'next/font/google';
 import { Providers } from './providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: 'Veridianexus',
-  description: 'Trust-powered data provenance platform',
+export const metadata = {
+  title: 'Veridian Nexus',
+  description: 'A secure, compliant SaaS platform for digital provenance',
 };
 
 export default function RootLayout({
