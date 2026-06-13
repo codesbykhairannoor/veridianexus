@@ -13,7 +13,7 @@ export function Providers({ children }: ProvidersProps) {
     <ChakraNextThemeProvider>
       <ChakraProvider>
         <SessionProvider>
-          <ThemeProvider attribute="class" defaultTheme="system">
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             {children}
           </ThemeProvider>
         </SessionProvider>

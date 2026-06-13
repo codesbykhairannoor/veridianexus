@@ -1,12 +1,9 @@
 import { Providers } from './providers';
 import './globals.css';
-import { Inter } from 'next/font/google';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'Veridian Nexus',
-  description: 'A secure, transparent SaaS platform for data provenance and trust verification',
+  title: 'Veridianexus',
+  description: 'Enterprise-grade SaaS platform for data provenance and trust intelligence',
 };
 
 export default function RootLayout({
@@ -16,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body>
         <Providers>{children}</Providers>
       </body>
     </html>
