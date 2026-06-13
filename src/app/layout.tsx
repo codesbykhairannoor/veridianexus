@@ -3,7 +3,7 @@ import './globals.css';
 
 export const metadata = {
   title: 'Veridianexus',
-  description: 'A secure, transparent SaaS platform',
+  description: 'Enterprise-grade SaaS platform for data provenance and trust intelligence',
 };
 
 export default function RootLayout({
