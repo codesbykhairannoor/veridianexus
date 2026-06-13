@@ -1,48 +1,57 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion'; // ✅ Keep import — used below
+import { useState, useEffect } from 'react';
 
-interface TrustBadgeCarouselProps {
-  t: Record<string, string>;
+interface Badge {
+  id: number;
+  name: string;
+  logo: string;
 }
 
-const badges = [
-  { id: 'iso27001', name: 'ISO/IEC 27001:2022', logo: '🔒', verified: true },
-  { id: 'nistai', name: 'NIST AI RMF Compliant', logo: '🛡️', verified: true },
-  { id: 'crispr', name: 'CRISPR-AI Provenance Certified', logo: '🧬', verified: true },
-  { id: 'fable5', name: 'Fable 5 Attribution Verified', logo: '📜', verified: true },
-  { id: 'mythos5', name: 'Mythos 5 Integrity Endorsed', logo: '✨', verified: true },
-];
+export default function TrustBadgeCarousel() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const badges: Badge[] = [
+    { id: 1, name: 'SOC 2', logo: '/logos/soc2.svg' },
+    { id: 2, name: 'ISO 27001', logo: '/logos/iso27001.svg' },
+    { id: 3, name: 'GDPR Compliant', logo: '/logos/gdpr.svg' },
+    { id: 4, name: 'HIPAA Ready', logo: '/logos/hipaa.svg' },
+  ];
 
-export default function TrustBadgeCarousel({ t }: TrustBadgeCarouselProps) {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % badges.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [badges.length]);
+
   return (
-    <div className="max-w-5xl mx-auto">
-      <h2 className="text-3xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 to-cyan-300">
-        {t('trust.carousel.title')}
-      </h2>
-      <div className="relative overflow-hidden">
-        <div className="flex animate-marquee whitespace-nowrap">
-          {[...badges, ...badges].map((badge, i) => (
-            <motion.div
-              key={`${badge.id}-${i}`}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="flex-shrink-0 mx-4"
-            >
-              <div className="flex items-center justify-center p-4 bg-slate-800/30 backdrop-blur-xl rounded-xl border border-slate-700/30 w-48 h-24">
-                <div className="text-3xl">{badge.logo}</div>
-                <div className="ml-3 text-left">
-                  <div className="text-sm font-medium text-slate-200">{badge.name}</div>
-                  <div className="flex items-center mt-1">
-                    <div className="w-2 h-2 bg-emerald-400 rounded-full mr-1"></div>
-                    <span className="text-xs text-emerald-400">{t('trust.verified')}</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-slate-900 to-transparent z-10" />
-        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-slate-900 to-transparent z-10" />
+    <div className="relative w-full max-w-4xl mx-auto py-12 px-4">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentIndex}
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -50 }}
+          transition={{ duration: 0.5 }}
+          className="flex justify-center items-center"
+        >
+          <img
+            src={badges[currentIndex].logo}
+            alt={badges[currentIndex].name}
+            className="h-16 md:h-20 grayscale hover:grayscale-0 transition-all duration-300"
+          />
+        </motion.div>
+      </AnimatePresence>
+      <div className="flex justify-center mt-6 space-x-2">
+        {badges.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => setCurrentIndex(idx)}
+            aria-label={`Go to ${badges[idx].name} badge`}
+            className={`w-3 h-3 rounded-full transition-colors ${
+              idx === currentIndex ? 'bg-blue-600' : 'bg-gray-300'
+            }`}
+          />
+        ))}
       </div>
     </div>
   );
